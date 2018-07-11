@@ -1,6 +1,6 @@
 package tictact0e.app.controller;
 
-import tictact0e.app.logic.DBManagement;
+import tictact0e.app.connector.DBManagement;
 import tictact0e.app.model.Book;
 
 import javax.servlet.ServletException;
@@ -33,7 +33,7 @@ public class TestServlet extends HttpServlet {
                 printWriter.println("<tr>");
                 printWriter.println("<td>" + book.getId() + "</td>");
                 printWriter.println("<td>" + book.getName() + "</td>");
-                printWriter.println("<td>" + book.getAutor() + "</td>");
+                printWriter.println("<td>" + book.getAuthor() + "</td>");
                 printWriter.println("<td>" + book.getPrice() + "</td>");
                 printWriter.println("</tr>");
             }

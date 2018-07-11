@@ -4,7 +4,7 @@ public class Book {
 
     private int id;
     private String name;
-    private String autor;
+    private String author;
     private double price;
 
     public Book(){}
@@ -25,12 +25,12 @@ public class Book {
         this.name = name;
     }
 
-    public String getAutor() {
-        return autor;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public double getPrice() {
