@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Collection;
 
 public class TestServlet extends HttpServlet {
 
@@ -27,7 +27,7 @@ public class TestServlet extends HttpServlet {
         printWriter.println("<h3> Список книг </h3>");
         printWriter.println("<table border = 1>");
         try {
-            ArrayList books = DBManagement.getInstance().getAllBooks();
+            Collection books = DBManagement.getInstance().getAllBooks();
             for (Object book1 : books) {
                 Book book = (Book) book1;
                 printWriter.println("<tr>");

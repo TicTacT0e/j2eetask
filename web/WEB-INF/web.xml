@@ -9,6 +9,28 @@
         <servlet-name>TestServlet</servlet-name>
         <servlet-class>tictact0e.app.controller.TestServlet</servlet-class>
     </servlet>
+
+    <servlet>
+        <display-name>MainFrameServlet</display-name>
+        <servlet-name>MainFrameServlet</servlet-name>
+        <servlet-class>tictact0e.app.controller.MainFrameServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <display-name>BookServlet</display-name>
+        <servlet-name>BookServlet</servlet-name>
+        <servlet-class>tictact0e.app.controller.BookServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>BookServlet</servlet-name>
+        <url-pattern>/bookServ</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>MainFrameServlet</servlet-name>
+        <url-pattern>/main</url-pattern>
+    </servlet-mapping>
     
     <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>
@@ -19,5 +41,9 @@
         <resource-env-ref-name>jdbc/books_web</resource-env-ref-name>
         <resource-env-ref-type>javax.sql.DataSource</resource-env-ref-type>
     </resource-env-ref>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 
 </web-app>
