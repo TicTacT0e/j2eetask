@@ -22,6 +22,17 @@
         <servlet-class>tictact0e.app.controller.BookEditServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <display-name>LoginServlet</display-name>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>tictact0e.app.controller.LoginServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>BookEditServlet</servlet-name>
         <url-pattern>/bookserv</url-pattern>
@@ -43,7 +54,7 @@
     </resource-env-ref>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>loginFrame.jsp</welcome-file>
     </welcome-file-list>
 
 </web-app>
