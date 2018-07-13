@@ -1,6 +1,7 @@
 package tictact0e.app.connector;
 
 import tictact0e.app.model.Book;
+import tictact0e.app.model.User;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -40,6 +41,34 @@ public class DBManagement {
     private DBManagement() {
     }
 
+    public Collection getAllUsers() throws SQLException {
+        Collection users = new ArrayList();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM books_web.users;");
+        getUsersCollection(resultSet, users);
+        resultSet.close();
+        statement.close();
+        return users;
+    }
+
+    public void deleteUser(User user) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("DELETE FROM books_web.users WHERE id=" + user.getId());
+        statement.close();
+    }
+
+    public void insertUsers(User user) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.execute("INSERT INTO books_web.users(id, username, pass, email)" +
+        "VALUES (" + user.getId() + ", '" + user.getUsername() + "', '" + user.getPassword() + "', '" + user.getEmail() + "');");
+    }
+
+    public int getNewUserId() throws SQLException {
+        Collection users = new ArrayList();
+        users = getAllUsers();
+        return users.size() + 1;
+    }
+
     public Collection getAllBooks() throws SQLException {
         Collection books = new ArrayList();
         Statement statement = connection.createStatement();
@@ -50,7 +79,7 @@ public class DBManagement {
         return books;
     }
 
-    public Collection getByName(String searchName) throws SQLException {
+    public Collection getBooksByName(String searchName) throws SQLException {
         Collection books = new ArrayList();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM books_web.content WHERE name ='" +
@@ -61,7 +90,7 @@ public class DBManagement {
         return books;
     }
 
-    public Collection getById(int searchId) throws SQLException {
+    public Collection getBooksById(int searchId) throws SQLException {
         Collection books = new ArrayList();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM books_web.content WHERE id =" +
@@ -109,7 +138,7 @@ public class DBManagement {
         statement.close();
     }
 
-    public int getNewId() throws SQLException {
+    public int getNewBookId() throws SQLException {
         Collection books = new ArrayList();
         books = getAllBooks();
         return books.size() + 1;
@@ -124,7 +153,17 @@ public class DBManagement {
             book.setAuthor(resultSet.getString(3));
             book.setPrice(resultSet.getDouble(4));
             books.add(book);
+        }
+    }
 
+    private void getUsersCollection(ResultSet resultSet, Collection users) throws SQLException  {
+        while (resultSet.next()) {
+            User user = new User();
+            user.setId(resultSet.getInt(1));
+            user.setUsername(resultSet.getString(2));
+            user.setPassword(resultSet.getString(3));
+            user.setEmail(resultSet.getString(4));
+            users.add(user);
         }
     }
 }

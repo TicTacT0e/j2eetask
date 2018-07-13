@@ -16,17 +16,13 @@
 </head>
 <body>
 
-<!--
-  <a href="${pageContext.request.contextPath}/main">Main Frame</a>
-  -->
-
 <form action="<c:url value="/login"/>" method="post">
 
     <label for="userField"> User: </label> <input type="text" id="userField" name="userField">
     <br>
     <label> Password: </label> <input type="password" id="passwordField" name="passwordField">
     <br>
-    <input type="submit" value="OK">
+    <input type="submit" value="OK"> <input type="submit" name="registration" value="Registration?">
 
 </form>
 </body>

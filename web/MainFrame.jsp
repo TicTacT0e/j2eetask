@@ -1,4 +1,4 @@
-<%--
+<%@ page import="tictact0e.app.connector.DBManagement" %><%--
   Created by IntelliJ IDEA.
   User: tictactoe
   Date: 11/07/18
@@ -10,13 +10,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@page errorPage="errorFrame.jsp" %>
+<%@page errorPage="ErrorFrame.jsp" %>
 
 <%
     if (session.getAttribute("user") == null) {
-
         throw new Exception("Wrong username or password");
-
+    } else {
+        request.setAttribute("booksList", DBManagement.getInstance().getAllBooks());
     }
 
 %>
@@ -59,8 +59,14 @@
             <td><input type="submit" value="Add" name="add"/></td>
             <td><input type="submit" value="Edit" name="edit"/></td>
             <td><input type="submit" value="Delete" name="delete"/></td>
+            <td><input type="submit" value="Add to Card" name="basket"></td>
         </tr>
     </table>
+
+    <hr>
+    <c:out value="Items in the cart: ${quantity}" />
+    <br>
+    <c:out value="Cost: ${sumCost}" />
 
 </form>
 

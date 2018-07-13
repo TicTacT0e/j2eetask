@@ -29,7 +29,7 @@ public class BookEditServlet extends HttpServlet {
             if (req.getParameter("newBook") != null && req.getParameter("ok") != null) {
                 int tempFlag;
 
-                tempFlag = DBManagement.getInstance().getNewId();
+                tempFlag = DBManagement.getInstance().getNewBookId();
 
                 if (tempFlag == Integer.parseInt(req.getParameter("newBook"))) {
                     insertBook(req);
