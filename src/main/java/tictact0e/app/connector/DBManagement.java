@@ -1,7 +1,7 @@
 package tictact0e.app.connector;
 
-import tictact0e.app.model.Book;
-import tictact0e.app.model.User;
+import tictact0e.app.entity.Book;
+import tictact0e.app.entity.User;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

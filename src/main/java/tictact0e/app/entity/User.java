@@ -1,4 +1,4 @@
-package tictact0e.app.model;
+package tictact0e.app.entity;
 
 public class User {
 

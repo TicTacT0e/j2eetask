@@ -1,7 +1,7 @@
 package tictact0e.app.controller;
 
 import tictact0e.app.connector.DBManagement;
-import tictact0e.app.model.User;
+import tictact0e.app.entity.User;
 import tictact0e.app.validators.EmailValidator;
 
 import javax.servlet.ServletException;
