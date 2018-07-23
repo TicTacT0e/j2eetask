@@ -29,7 +29,6 @@ public class BookEditServlet extends HttpServlet {
             if (req.getParameter("newBook") != null && req.getParameter("ok") != null) {
                 int tempFlag;
 
-                //tempFlag = DBManagement.getInstance().getNewBookId();
                 tempFlag = FactoryService.getInstance().getBookService().getNewBookId();
 
                 if (tempFlag == Integer.parseInt(req.getParameter("newBook"))) {
@@ -53,13 +52,11 @@ public class BookEditServlet extends HttpServlet {
 
     private void insertBook(HttpServletRequest req) throws SQLException {
         Book book = prepareBook(req);
-        //DBManagement.getInstance().insertBook(book);
         FactoryService.getInstance().getBookService().insert(book);
     }
 
     private void updateBook(HttpServletRequest req) throws SQLException {
         Book book = prepareBook(req);
-        //DBManagement.getInstance().updateBook(book);
         FactoryService.getInstance().getBookService().update(book);
     }
 

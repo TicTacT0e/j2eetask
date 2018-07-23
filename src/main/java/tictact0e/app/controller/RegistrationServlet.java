@@ -28,58 +28,56 @@ public class RegistrationServlet extends HttpServlet {
 
         StringBuilder errors = new StringBuilder();
 
-        try{
-            if (req.getParameter("newUserId") != null && req.getParameter("ok") != null){
+        try {
+            if (req.getParameter("newUserId") != null && req.getParameter("ok") != null) {
 
-                //Collection registeredUsers = DBManagement.getInstance().getAllUsers();
                 Collection registeredUsers = FactoryService.getInstance().getUserService().getAll();
 
-                if(req.getParameter("usernameField") == null || req.getParameter("usernameField").isEmpty()) {
+                if (req.getParameter("usernameField") == null || req.getParameter("usernameField").isEmpty()) {
                     errors.append("Username field is empty. ");
                 }
 
-                if(req.getParameter("passwordField") == null || req.getParameter("passwordField").isEmpty()) {
+                if (req.getParameter("passwordField") == null || req.getParameter("passwordField").isEmpty()) {
                     errors.append("Password field is empty. ");
                 }
 
-                if(req.getParameter("repeatedPassword") == null || req.getParameter("repeatedPassword").isEmpty()) {
+                if (req.getParameter("repeatedPassword") == null || req.getParameter("repeatedPassword").isEmpty()) {
                     errors.append("Confirm password field is empty. ");
                 }
 
-                if(req.getParameter("emailField") == null || req.getParameter("emailField").isEmpty()) {
+                if (req.getParameter("emailField") == null || req.getParameter("emailField").isEmpty()) {
                     errors.append("Email field is empty. ");
                 }
 
-                if(!EmailValidator.validate(req.getParameter("emailField"))){
+                if (!EmailValidator.validate(req.getParameter("emailField"))) {
                     errors.append("This is not an email. ");
                 }
 
-                if(!req.getParameter("passwordField").equals(req.getParameter("repeatedPassword"))){
+                if (!req.getParameter("passwordField").equals(req.getParameter("repeatedPassword"))) {
                     errors.append("Passwords do not match. ");
                 }
 
-                for (Object ob : registeredUsers){
+                for (Object ob : registeredUsers) {
                     User registeredUser = (User) ob;
 
-                    if(req.getParameter("emailField").equals(registeredUser.getEmail())){
+                    if (req.getParameter("emailField").equals(registeredUser.getEmail())) {
                         errors.append("This email is registered. ");
                     }
 
-                    if(req.getParameter("usernameField").equals(registeredUser.getUsername())){
+                    if (req.getParameter("usernameField").equals(registeredUser.getUsername())) {
                         errors.append("This nickname is registered. ");
                     }
                 }
 
-                if (errors.length() == 0){
-                   User user = new User();
-                   user.setId(Integer.parseInt(req.getParameter("newUserId")));
-                   user.setUsername(req.getParameter("usernameField"));
-                   user.setPassword(req.getParameter("passwordField"));
-                   user.setEmail(req.getParameter("emailField"));
+                if (errors.length() == 0) {
+                    User user = new User();
+                    user.setId(Integer.parseInt(req.getParameter("newUserId")));
+                    user.setUsername(req.getParameter("usernameField"));
+                    user.setPassword(req.getParameter("passwordField"));
+                    user.setEmail(req.getParameter("emailField"));
 
-                  // DBManagement.getInstance().insertUsers(user);
                     FactoryService.getInstance().getUserService().insert(user);
-                   req.getRequestDispatcher("/LoginFrame.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/LoginFrame.jsp").forward(req, resp);
                 } else {
                     int newUserId = Integer.parseInt(req.getParameter("newUserId"));
                     req.setAttribute("newUserId", newUserId);
@@ -87,7 +85,7 @@ public class RegistrationServlet extends HttpServlet {
                     req.getRequestDispatcher("/RegistrationFrame.jsp").forward(req, resp);
                 }
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

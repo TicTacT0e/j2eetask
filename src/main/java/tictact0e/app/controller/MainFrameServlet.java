@@ -1,7 +1,5 @@
 package tictact0e.app.controller;
 
-import tictact0e.app.connector.DBManagement;
-import tictact0e.app.dao.factory.FactoryDao;
 import tictact0e.app.entity.Basket;
 import tictact0e.app.entity.Book;
 import tictact0e.app.service.factory.FactoryService;
@@ -60,10 +58,10 @@ public class MainFrameServlet extends HttpServlet {
          * add to card
          */
         if (editFlag == 3) {
-            addToCard(req);
+            addToCard(req, resp);
         }
 
-       // updateContent(req, resp);
+        updateContent(req, resp);
     }
 
     private int checkAction(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
@@ -90,7 +88,8 @@ public class MainFrameServlet extends HttpServlet {
     private void updateContent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("quantity", quantityInBasket);
         req.setAttribute("sumCost", sumCost);
-        //req.setAttribute("booksList", books);
+        req.setAttribute("booksList", books);
+
 
         req.getRequestDispatcher("/MainFrame.jsp").forward(req, resp);
     }
@@ -101,7 +100,6 @@ public class MainFrameServlet extends HttpServlet {
 
         if (searchField == null || searchField.isEmpty()) {
             try {
-                //books = DBManagement.getInstance().getAllBooks();
                 books = FactoryService.getInstance().getBookService().getAll();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -112,35 +110,12 @@ public class MainFrameServlet extends HttpServlet {
             try {
                 if (searchField.matches("[-+]?\\d+")) {
                     int searchId = Integer.parseInt(searchField);
-                    //books = DBManagement.getInstance().getBooksById(searchId);
-
-
                     Book book = FactoryService.getInstance().getBookService().getById(searchId);
                     Collection tempBooks = new ArrayList();
                     tempBooks.add(book);
                     books = tempBooks;
-
-                    req.setAttribute("booksList", books);
-
-                    for (Object ob : books){
-                        Book book1 = (Book) ob;
-                        System.out.println(book1.getName());
-                    }
-
-                    updateContent(req, resp);
                 } else {
-                    //books = DBManagement.getInstance().getBooksByName(searchField);
                     books = FactoryService.getInstance().getBookService().getByName(searchField);
-
-                    req.setAttribute("booksList", books);
-
-                    for (Object ob : books){
-
-                        Book book1 = (Book) ob;
-                        System.out.println(book1.getName());
-                    }
-
-                    updateContent(req, resp);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -151,7 +126,6 @@ public class MainFrameServlet extends HttpServlet {
     private void add(HttpServletRequest req, HttpServletResponse resp) {
         try {
             Book book = new Book();
-            //book.setId(DBManagement.getInstance().getNewBookId());
             book.setId(FactoryService.getInstance().getBookService().getNewBookId());
 
             req.setAttribute("newBook", book);
@@ -164,7 +138,6 @@ public class MainFrameServlet extends HttpServlet {
     private void edit(HttpServletRequest req, HttpServletResponse resp) {
         try {
             if (req.getParameter("booksId") != null) {
-                //Book book = DBManagement.getInstance().getBookById(Integer.parseInt(req.getParameter("booksId")));
                 Book book = FactoryService.getInstance().getBookService().getById(Integer.parseInt(req.getParameter("booksId")));
 
                 req.setAttribute("newBook", book);
@@ -175,10 +148,9 @@ public class MainFrameServlet extends HttpServlet {
         }
     }
 
-    private void addToCard(HttpServletRequest req) {
+    private void addToCard(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             if (req.getParameter("booksId") != null) {
-                //Book book = DBManagement.getInstance().getBookById(Integer.parseInt(req.getParameter("booksId")));
                 Book book = FactoryService.getInstance().getBookService().getById(Integer.parseInt(req.getParameter("booksId")));
                 quantityInBasket++;
                 sumCost += book.getPrice();

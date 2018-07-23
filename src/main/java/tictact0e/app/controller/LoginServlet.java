@@ -32,7 +32,6 @@ public class LoginServlet extends HttpServlet {
         String passwordField = req.getParameter("passwordField");
 
         try {
-            //users = DBManagement.getInstance().getAllUsers();
             users = FactoryService.getInstance().getUserService().getAll();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,7 +42,12 @@ public class LoginServlet extends HttpServlet {
             if (user.getUsername().equals(usernameField) && user.getPassword().equals(passwordField)){
                 HttpSession session = req.getSession(true);
                 session.setAttribute("user", usernameField);
-
+                try {
+                    Collection books = FactoryService.getInstance().getBookService().getAll();
+                    req.setAttribute("booksList", books);
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
                 break;
             }
         }

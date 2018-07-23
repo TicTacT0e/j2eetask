@@ -15,10 +15,7 @@
 <%
     if (session.getAttribute("user") == null) {
         throw new Exception("Wrong username or password");
-    } else {
-        request.setAttribute("booksList", FactoryService.getInstance().getBookService().getAll());
     }
-
 %>
 
 <html>
