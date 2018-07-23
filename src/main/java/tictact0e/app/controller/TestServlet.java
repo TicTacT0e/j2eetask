@@ -1,7 +1,8 @@
 package tictact0e.app.controller;
 
-import tictact0e.app.connector.DBManagement;
+import tictact0e.app.dao.factory.FactoryDao;
 import tictact0e.app.entity.Book;
+import tictact0e.app.service.factory.FactoryService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +28,8 @@ public class TestServlet extends HttpServlet {
         printWriter.println("<h3> Список книг </h3>");
         printWriter.println("<table border = 1>");
         try {
-            Collection books = DBManagement.getInstance().getAllBooks();
+            //Collection books = FactoryService.getInstance().getBookService().getAll();
+            Collection books = FactoryDao.getInstance().getBookDao().getAll();
             for (Object book1 : books) {
                 Book book = (Book) book1;
                 printWriter.println("<tr>");

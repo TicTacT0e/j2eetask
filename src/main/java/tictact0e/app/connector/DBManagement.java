@@ -60,7 +60,7 @@ public class DBManagement {
     public void insertUsers(User user) throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("INSERT INTO books_web.users(id, username, pass, email)" +
-        "VALUES (" + user.getId() + ", '" + user.getUsername() + "', '" + user.getPassword() + "', '" + user.getEmail() + "');");
+                "VALUES (" + user.getId() + ", '" + user.getUsername() + "', '" + user.getPassword() + "', '" + user.getEmail() + "');");
     }
 
     public int getNewUserId() throws SQLException {
@@ -118,9 +118,9 @@ public class DBManagement {
         return book;
     }
 
-    public void deleteBook(int deleteId) throws SQLException {
+    public void deleteBook(Book book) throws SQLException {
         Statement statement = connection.createStatement();
-        statement.executeUpdate("DELETE FROM books_web.content WHERE id=" + deleteId);
+        statement.executeUpdate("DELETE FROM books_web.content WHERE id=" + book.getId());
         statement.close();
     }
 

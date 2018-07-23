@@ -1,7 +1,7 @@
 package tictact0e.app.controller;
 
-import tictact0e.app.connector.DBManagement;
 import tictact0e.app.entity.User;
+import tictact0e.app.service.factory.FactoryService;
 import tictact0e.app.validators.EmailValidator;
 
 import javax.servlet.ServletException;
@@ -31,7 +31,8 @@ public class RegistrationServlet extends HttpServlet {
         try{
             if (req.getParameter("newUserId") != null && req.getParameter("ok") != null){
 
-                Collection registeredUsers = DBManagement.getInstance().getAllUsers();
+                //Collection registeredUsers = DBManagement.getInstance().getAllUsers();
+                Collection registeredUsers = FactoryService.getInstance().getUserService().getAll();
 
                 if(req.getParameter("usernameField") == null || req.getParameter("usernameField").isEmpty()) {
                     errors.append("Username field is empty. ");
@@ -76,7 +77,8 @@ public class RegistrationServlet extends HttpServlet {
                    user.setPassword(req.getParameter("passwordField"));
                    user.setEmail(req.getParameter("emailField"));
 
-                   DBManagement.getInstance().insertUsers(user);
+                  // DBManagement.getInstance().insertUsers(user);
+                    FactoryService.getInstance().getUserService().insert(user);
                    req.getRequestDispatcher("/LoginFrame.jsp").forward(req, resp);
                 } else {
                     int newUserId = Integer.parseInt(req.getParameter("newUserId"));

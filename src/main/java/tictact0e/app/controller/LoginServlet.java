@@ -1,7 +1,7 @@
 package tictact0e.app.controller;
 
-import tictact0e.app.connector.DBManagement;
 import tictact0e.app.entity.User;
+import tictact0e.app.service.factory.FactoryService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +32,8 @@ public class LoginServlet extends HttpServlet {
         String passwordField = req.getParameter("passwordField");
 
         try {
-            users = DBManagement.getInstance().getAllUsers();
+            //users = DBManagement.getInstance().getAllUsers();
+            users = FactoryService.getInstance().getUserService().getAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,7 +50,8 @@ public class LoginServlet extends HttpServlet {
 
         if (req.getParameter("registration") != null){
             try {
-                int newUserId = DBManagement.getInstance().getNewUserId();
+                //int newUserId = DBManagement.getInstance().getNewUserId();
+                int newUserId = FactoryService.getInstance().getUserService().getNewUserId();
                 req.setAttribute("newUserId", newUserId);
                 req.getRequestDispatcher("/RegistrationFrame.jsp").forward(req, resp);
             } catch (SQLException e){

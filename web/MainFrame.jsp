@@ -1,4 +1,4 @@
-<%@ page import="tictact0e.app.connector.DBManagement" %><%--
+<%@ page import="tictact0e.app.service.factory.FactoryService" %><%--
   Created by IntelliJ IDEA.
   User: tictactoe
   Date: 11/07/18
@@ -16,7 +16,7 @@
     if (session.getAttribute("user") == null) {
         throw new Exception("Wrong username or password");
     } else {
-        request.setAttribute("booksList", DBManagement.getInstance().getAllBooks());
+        request.setAttribute("booksList", FactoryService.getInstance().getBookService().getAll());
     }
 
 %>
@@ -64,9 +64,9 @@
     </table>
 
     <hr>
-    <c:out value="Items in the cart: ${quantity}" />
+    <c:out value="Items in the cart: ${quantity}"/>
     <br>
-    <c:out value="Cost: ${sumCost}" />
+    <c:out value="Cost: ${sumCost}"/>
 
 </form>
 

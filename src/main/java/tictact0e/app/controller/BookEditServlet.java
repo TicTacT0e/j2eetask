@@ -1,7 +1,7 @@
 package tictact0e.app.controller;
 
-import tictact0e.app.connector.DBManagement;
 import tictact0e.app.entity.Book;
+import tictact0e.app.service.factory.FactoryService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +29,8 @@ public class BookEditServlet extends HttpServlet {
             if (req.getParameter("newBook") != null && req.getParameter("ok") != null) {
                 int tempFlag;
 
-                tempFlag = DBManagement.getInstance().getNewBookId();
+                //tempFlag = DBManagement.getInstance().getNewBookId();
+                tempFlag = FactoryService.getInstance().getBookService().getNewBookId();
 
                 if (tempFlag == Integer.parseInt(req.getParameter("newBook"))) {
                     insertBook(req);
@@ -39,7 +40,8 @@ public class BookEditServlet extends HttpServlet {
             }
 
             Collection books;
-            books = DBManagement.getInstance().getAllBooks();
+            //books = DBManagement.getInstance().getAllBooks();
+            books = FactoryService.getInstance().getBookService().getAll();
 
             req.setAttribute("booksList", books);
             req.getRequestDispatcher("/MainFrame.jsp").forward(req, resp);
@@ -51,12 +53,14 @@ public class BookEditServlet extends HttpServlet {
 
     private void insertBook(HttpServletRequest req) throws SQLException {
         Book book = prepareBook(req);
-        DBManagement.getInstance().insertBook(book);
+        //DBManagement.getInstance().insertBook(book);
+        FactoryService.getInstance().getBookService().insert(book);
     }
 
     private void updateBook(HttpServletRequest req) throws SQLException {
         Book book = prepareBook(req);
-        DBManagement.getInstance().updateBook(book);
+        //DBManagement.getInstance().updateBook(book);
+        FactoryService.getInstance().getBookService().update(book);
     }
 
     private Book prepareBook(HttpServletRequest req) {
